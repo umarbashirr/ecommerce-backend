@@ -20,6 +20,9 @@ app.use(
 app.use(cookieParser());
 
 // Routes
+import authRouter from "./routes/auth.routes";
+
+app.use("/auth", authRouter);
 
 // Health check route
 app.get("/", (req, res) => {
