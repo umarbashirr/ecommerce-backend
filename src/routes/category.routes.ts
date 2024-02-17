@@ -6,7 +6,7 @@ import {
   getCategoryByIdCtrl,
   updateCategoryCtrl,
 } from "../controllers/category.controller";
-import { verifyJWT } from "../middlewares/verifyJWT";
+import { verifyJWT } from "../middlewares/verifyToken.middleware";
 
 const router = Router();
 
