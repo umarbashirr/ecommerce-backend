@@ -14,6 +14,5 @@ router.get("/", getAllCategoriesCtrl);
 router.post("/", verifyJWT, createCategoryCtrl);
 router.get("/:id", getCategoryByIdCtrl);
 router.put("/:id", verifyJWT, updateCategoryCtrl);
-router.delete("/:id", verifyJWT, deleteCategoryCtrl);
-
+router.route("/:id").delete(verifyJWT, deleteCategoryCtrl);
 export default router;
