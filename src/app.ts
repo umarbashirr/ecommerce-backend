@@ -21,23 +21,16 @@ app.use(
 // Middleware for cookie parsing
 
 // Routes
+import healthCheckRouter from "./routes/healthCheck.routes";
 import authRouter from "./routes/auth.routes";
 import userRouter from "./routes/user.routes";
 import categoryRouter from "./routes/category.routes";
 import productRouter from "./routes/product.routes";
 
+app.use("/api/v1/health", healthCheckRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/products", productRouter);
-
-// Health check route
-app.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    health: "ok",
-    message: "Hello from Express! 🎉",
-  });
-});
 
 export { app };
