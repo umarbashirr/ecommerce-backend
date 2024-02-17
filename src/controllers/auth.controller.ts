@@ -5,11 +5,11 @@ export const registerCtrl = async (req: any, res: any) => {
   const { firstName, lastName, username, email, password } = req.body;
 
   if (
-    !firstName.trim() ||
-    !lastName.trim() ||
-    !username.trim() ||
-    !email.trim() ||
-    !password.trim()
+    !firstName?.trim() ||
+    !lastName?.trim() ||
+    !username?.trim() ||
+    !email?.trim() ||
+    !password?.trim()
   ) {
     return res
       .status(400)
@@ -54,7 +54,7 @@ export const registerCtrl = async (req: any, res: any) => {
 export const loginCtrl = async (req: any, res: any) => {
   const { username, password } = req.body;
 
-  if (!username.trim() || !password.trim()) {
+  if (!username?.trim() || !password?.trim()) {
     return res
       .status(400)
       .json(new ApiResponse(400, "Username and password are required"));
