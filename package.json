@@ -1,15 +1,21 @@
 {
   "name": "ecommerce-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "E-commerce backend with Node.js, Express, MongoDB, TypeScript, and JWT",
+  "main": "src/index.js",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "build": "tsc -p ."
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "TypeScript",
+    "JWT"
+  ],
+  "author": "Umar Bashir Rather",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
