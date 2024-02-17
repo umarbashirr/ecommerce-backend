@@ -7,6 +7,8 @@ const app = express();
 // Middlewares for parsing JSON and urlencoded request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use(cookieParser());
 
 // Middlewares for handling CORS
 app.use(
@@ -17,7 +19,6 @@ app.use(
 );
 
 // Middleware for cookie parsing
-app.use(cookieParser());
 
 // Routes
 import authRouter from "./routes/auth.routes";
