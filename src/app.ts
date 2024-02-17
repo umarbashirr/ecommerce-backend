@@ -21,9 +21,11 @@ app.use(cookieParser());
 
 // Routes
 import authRouter from "./routes/auth.routes";
+import userRouter from "./routes/user.routes";
 import categoryRouter from "./routes/category.routes";
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
 app.use("/api/v1/categories", categoryRouter);
 
 // Health check route
