@@ -1,3 +1,4 @@
+import Profile from "../models/profile.model";
 import User from "../models/user.model";
 import ApiResponse from "../utils/apiResponse";
 
@@ -35,15 +36,25 @@ export const registerCtrl = async (req: any, res: any) => {
         .json(new ApiResponse(400, "Username or email already exists"));
     }
 
-    const newUser = new User({
+    const profile = new Profile({
       firstName,
       lastName,
+    });
+
+    const updatedProfile = await profile.save();
+
+    const newUser = new User({
       username,
       email,
       password,
+      profile: updatedProfile._id,
     });
 
-    await newUser.save();
+    const addedUser = await newUser.save();
+
+    updatedProfile.user = addedUser._id;
+
+    await updatedProfile.save();
 
     res.status(201).json(new ApiResponse(201, "User created successfully"));
   } catch (error: any) {

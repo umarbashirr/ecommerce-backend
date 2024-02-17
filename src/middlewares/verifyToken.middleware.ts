@@ -7,19 +7,23 @@ export const verifyJWT = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+  try {
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
-  if (!token) {
-    return res.status(401).json(new ApiResponse(401, "Unauthorized"));
+    if (!token) {
+      return res.status(401).json(new ApiResponse(401, "Unauthorized"));
+    }
+
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET as string);
+
+    if (!decoded) {
+      return res.status(401).json(new ApiResponse(401, "Unauthorized"));
+    }
+
+    req.user = decoded;
+
+    next();
+  } catch (error: any) {
+    res.status(500).json(new ApiResponse(500, error.message));
   }
-
-  const decoded = await jwt.verify(token, process.env.JWT_SECRET as string);
-
-  if (!decoded) {
-    return res.status(401).json(new ApiResponse(401, "Unauthorized"));
-  }
-
-  req.user = decoded;
-
-  next();
 };
