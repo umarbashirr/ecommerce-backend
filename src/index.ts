@@ -3,7 +3,9 @@ import { connectDB } from "./db";
 import { config } from "dotenv";
 
 // Load environment variables
-config();
+config({
+  path: "../.env",
+});
 
 const port = process.env.PORT || 5000; // Default port to listen
 
