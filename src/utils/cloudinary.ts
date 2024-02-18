@@ -2,22 +2,30 @@ import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.CLOUDINARY_NAME as string,
+  api_key: process.env.CLOUDINARY_API_KEY as string,
+  api_secret: process.env.CLOUDINARY_API_SECRET as string,
 });
 
-const uploadToCloudinary = async (filePath: string) => {
+const uploadToCloudinary = async (filePaths: string[]) => {
   try {
-    if (!filePath) return null;
-    const response = await cloudinary.uploader.upload(filePath, {
-      resource_type: "auto",
-    });
+    if (!filePaths.length) return null;
+    const paths = await Promise.all(
+      filePaths.map(async (path) => {
+        const response = await cloudinary.uploader.upload(path, {
+          resource_type: "auto",
+        });
+        fs.unlinkSync(path);
+        return response;
+      })
+    );
 
-    fs.unlinkSync(filePath);
-    return response;
+    return paths;
   } catch (error) {
-    fs.unlinkSync(filePath);
+    console.error(error);
+    filePaths.forEach((filePath) => {
+      fs.unlinkSync(filePath);
+    });
     return null;
   }
 };
