@@ -1,3 +1,4 @@
+import { verifyJWT } from "./../middlewares/verifyToken.middleware";
 import { Router } from "express";
 import {
   getAllBrandsCtrl,
@@ -11,8 +12,8 @@ const router = Router();
 
 router.route("/").get(getAllBrandsCtrl);
 router.route("/:id").get(getBrandByIdCtrl);
-router.route("/").post(createBrandCtrl);
-router.route("/:id").put(updateBrandCtrl);
-router.route("/:id").delete(deleteBrandCtrl);
+router.route("/").post(verifyJWT, createBrandCtrl);
+router.route("/:id").put(verifyJWT, updateBrandCtrl);
+router.route("/:id").delete(verifyJWT, deleteBrandCtrl);
 
 export default router;
